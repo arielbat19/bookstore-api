@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ariel.bookstore.domain.Categoria;
 import com.ariel.bookstore.dtos.CategoriaDTO;
 import com.ariel.bookstore.repositories.CategoriaRepository;
+import com.ariel.bookstore.service.exception.DataIntegrityViolationException;
 import com.ariel.bookstore.service.exception.ObjectNotFoundException;
 
 @Service
@@ -22,15 +23,15 @@ public class CategoriaService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-	
+
 	public List<Categoria> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Categoria create(Categoria obj) {
 		obj.setId(null);
 		return repository.save(obj);
-		
+
 	}
 
 	public Categoria update(Integer id, CategoriaDTO objDto) {
@@ -42,6 +43,11 @@ public class CategoriaService {
 
 	public void delete(Integer id) {
 		findById(id);
-		repository.deleteById(id);
+
+		try {
+			repository.deleteById(id);
+		} catch (org.springframework.dao.DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Categoria não pode ser deletada! Possui livros associados");
+		}
 	}
 }
