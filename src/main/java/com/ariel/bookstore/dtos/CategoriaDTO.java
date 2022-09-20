@@ -6,7 +6,7 @@ import com.ariel.bookstore.domain.Categoria;
 
 public class CategoriaDTO implements Serializable{
 	
-	private static final long serialVersionUID = -2672025420192109928L;
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String nome;
 	private String descricao;
@@ -40,7 +40,5 @@ public class CategoriaDTO implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
 
 }
