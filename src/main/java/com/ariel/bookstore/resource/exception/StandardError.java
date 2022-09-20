@@ -4,6 +4,7 @@ public class StandardError {
 
 	private Long timesTemp;
 	private Integer status;
+	private String error;
 
 	public StandardError() {
 		super();
@@ -16,8 +17,6 @@ public class StandardError {
 		this.status = status;
 		this.error = error;
 	}
-
-	private String error;
 
 	public Long getTimesTemp() {
 		return timesTemp;
